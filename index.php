@@ -7,12 +7,15 @@
 $forecast = json_decode(file_get_contents($api_url));
 
 echo '<pre>';
-print_r(($forecast));
+print_r($forecast);
 echo '</pre>';
 
 
 	$temperature_current = round($forecast->currently->temperature);
-	$summary_current = $forecast->currently->summary;
+	$summary_current = $forecast->currently->temperature;
+	 $windspeed_current =round( $forecast->currently->windSpeed);
+	$humidity_current = $forecast->currently->humidity*100;
+
 ?>
 
 
@@ -28,9 +31,11 @@ echo '</pre>';
 		<main class="container text-center">
 			<h1 class="display-1">Forecast</h1>
 			<div class="card p-4" style="margin: 0 auto;max-width: 320px;">
-				<h2>Current Forecast</h2>
+				<h2>Current Forecast in </h2>
 				<h3 class="display-2"><?php echo $temperature_current; ?>&deg;</h3>
+				<h3>Humidity <?php echo $humidity_current; ?>&deg;</h3>
 				<p class="lead"><?php echo $summary_current; ?></p>
+				<p class="lead">Wind Speed: <?php echo $windspeed_current; ?> <abbr title="meter per second">MPS</abbr></p>
 			</div>
 		</main>
 	</body>
